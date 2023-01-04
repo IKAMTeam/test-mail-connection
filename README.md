@@ -10,3 +10,14 @@ Simple standalone app to test connections to the mail server using OAuth2 authen
 ##### scope=...
 ##### grant_type=client_credentials
 ##### token_uri=https://example.com/token
+## details:
+### MS:
+##### to register an app - https://learn.microsoft.com/en-us/graph/auth-register-app-v2
+##### when you register an app you need to get client_id and cleint_secret
+##### you can find these parameters here https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
+##### to get token uri you need to find {tenant} (POST https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token)
+##### you may find {tenant} in your app settings
+##### you may find scopes and permisions here https://learn.microsoft.com/en-us/graph/permissions-reference and your app
+### Google:
+##### to find credentials or create new credentials here https://console.cloud.google.com/apis/credentials
+##### there are other settings
