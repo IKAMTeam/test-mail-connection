@@ -9,13 +9,13 @@ public interface Credential {
     String SCOPE = "scope";
     String GRANT_TYPE = "grant_type";
     String TOKEN_URI = "token_uri";
-    String MAIL_DEBUG = "mail.debug";
-    String DEFAULT_PATH = "\\credential.properties";
-    String MAIL_DEBUG_DEFAULT_VALUE = "false";
-    String MAIL_PROPERTIES_PATH = "/mail.properties";
+    String DEFAULT_PATH = "credential.properties";
     String PROTOCOL = "imap";
-    String ACCESS_TOKEN = "access_token";
-    String CHARSET = "UTF-8";
     String MAIL_DEBUG_AUTH = "mail.debug.auth";
+    String MAIL_DEBUG = "mail.debug";
+    String MAIL_DEBUG_DEFAULT_VALUE = "false";
     String MAIL_DEBUG_AUTH_DEFAULT_VALUE = "false";
+    String MAIL_PREFIX = "mail.";
+
+    String ACCESS_TOKEN = "access_token";
 }
