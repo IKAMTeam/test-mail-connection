@@ -3,17 +3,14 @@ package com.onevizion.mailtest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.io.*;
 import java.util.Set;
 
-import static com.onevizion.mailtest.Credentials.Property.*;
+import static com.onevizion.mailtest.Settings.Property.*;
 
-public class Credentials {
-    private static final Logger log = LoggerFactory.getLogger(Credentials.class);
-    private final Properties properties;
+public class Settings {
+    private static final Logger log = LoggerFactory.getLogger(Settings.class);
+    private final java.util.Properties properties;
 
     private final static String MAIL_PROPERTY_PREFIX = "mail.";
 
@@ -30,23 +27,40 @@ public class Credentials {
 
     private static final Set<String> REQUIRED_KEYS = Set.of(CLIENT_ID, CLIENT_SECRET, SCOPE, TOKEN_URI, HOST, PORT, EMAIL);
 
-    public Credentials(Properties properties) {
+    public Settings(java.util.Properties properties) {
         this.properties = properties;
     }
 
-    public static Credentials parseFromPath(String path) {
-        try (InputStream inputStream = new FileInputStream(path)) {
-            Properties properties = new Properties();
-            properties.load(inputStream);
+    public static Settings parseFromPath(String path) {
+        InputStream input = null;
+        try {
+            input = new FileInputStream(path);
+            java.util.Properties properties = new java.util.Properties();
+            properties.load(input);
             check(properties);
-            return new Credentials(properties);
-        } catch (IOException e) {
-            log.error("Properties is not loaded", e);
+            return new Settings(properties);
+        } catch (FileNotFoundException e) {
+            log.error(String.format("File with properties '%s' is not found", path), e);
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            log.error(String.format("Properties by path '%s' are not loaded", path), e);
+            throw new RuntimeException(e);
+        } finally {
+            close(input);
         }
     }
 
-    private static void check(Properties properties) {
+    private static void close(InputStream input) {
+        try {
+            if (input != null) {
+                input.close();
+            }
+        } catch (IOException e) {
+            log.error("Cannot close input", e);
+        }
+    }
+
+    private static void check(java.util.Properties properties) {
         for (String key : REQUIRED_KEYS) {
             if (!properties.containsKey(key)) {
                 log.error("'{}' is a required property. The property is not found.", key);
@@ -87,8 +101,8 @@ public class Credentials {
         return Boolean.parseBoolean((String) properties.getOrDefault(IS_DEBUG, "false"));
     }
 
-    public Properties getMailProperties() {
-        Properties mailProperties = new Properties();
+    public java.util.Properties getMailProperties() {
+        java.util.Properties mailProperties = new java.util.Properties();
         for (String name : properties.stringPropertyNames()) {
             if (name.indexOf(MAIL_PROPERTY_PREFIX) == 0) {
                 mailProperties.put(name, properties.get(name));
