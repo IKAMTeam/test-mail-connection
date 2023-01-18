@@ -12,7 +12,7 @@ import static com.onevizion.mailtest.Property.*;
 public class Settings {
     private static final Logger LOG = LoggerFactory.getLogger(Settings.class);
     private final Properties properties;
-    private final static String MAIL_PROPERTY_PREFIX = "mail.";
+    private static final String MAIL_PROPERTY_PREFIX = "mail.";
     private static final Set<Property> REQUIRED_KEYS = Set.of(CLIENT_ID, CLIENT_SECRET, SCOPE, TOKEN_URI, HOST, PORT, EMAIL);
 
     public Settings(Properties properties) {
