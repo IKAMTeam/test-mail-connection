@@ -14,7 +14,7 @@ java -jar test-mail-connection-1.0-SNAPSHOT-jar-with-dependencies.jar D:\\...som
 ><br/>mail.debug.auth=true
 #### details
 [To register an app](https://learn.microsoft.com/en-us/graph/auth-register-app-v2). 
-When you register your app you need to get client_id and client_secret. 
+When you register your app you need to get client_id and client_secret.
 You can find these parameters [here](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade).
 To get token uri you need to find {tenant}. URI - https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token. 
 You may find {tenant} in your app settings. To find scopes and permissions [here](https://learn.microsoft.com/en-us/graph/permissions-reference)
