@@ -10,7 +10,6 @@ import java.util.Set;
 import static com.onevizion.mailtest.Property.*;
 
 public class Settings {
-    private static final Logger LOG = LoggerFactory.getLogger(Settings.class);
     private final Properties properties;
     private static final String MAIL_PROPERTY_PREFIX = "mail.";
     private static final Set<Property> REQUIRED_KEYS = Set.of(CLIENT_ID, CLIENT_SECRET, SCOPE, TOKEN_URI, HOST, PORT, EMAIL);
@@ -26,19 +25,17 @@ public class Settings {
             check(properties);
             return new Settings(properties);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException(String.format("File with properties by path '%s' is not found", path));
+            throw new RuntimeException(String.format("File with properties by path '%s' is not found", path), e);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(String.format("Properties by path '%s' are not loaded", path));
+            throw new RuntimeException(String.format("Properties by path '%s' are not loaded", path), e);
         }
     }
 
     private static void check(Properties properties) {
         for (Property property : REQUIRED_KEYS) {
             if (!properties.containsKey(property.getText())) {
-                LOG.error("'{}' is a required property. The property is not found.", property.getText());
-                throw new RuntimeException(property.getText() + " is not found");
+                String errorMessage = String.format("'%s' is a required property. The property is not found.", property.getText());
+                throw new RuntimeException(errorMessage);
             }
         }
     }

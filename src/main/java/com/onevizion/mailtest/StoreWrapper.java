@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class StoreWrapper {
-    private static final Logger LOG = LoggerFactory.getLogger(StoreWrapper.class);
     private final Store store;
     private final Settings settings;
     private final String token;
@@ -37,8 +36,7 @@ public class StoreWrapper {
             session.setDebug(settings.isDebug());
             store = session.getStore("imap");
         } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Mail provider is not found");
+            throw new RuntimeException("Mail provider is not found", e);
         }
     }
 
@@ -46,7 +44,7 @@ public class StoreWrapper {
         try {
             store.connect(settings.getHost(), settings.getPort(), settings.getEmail(), token);
         } catch (MessagingException e) {
-            LOG.error("Connection is not set", e);
+            throw new RuntimeException("Connection is not set", e);
         }
     }
 }

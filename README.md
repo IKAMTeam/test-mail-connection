@@ -1,11 +1,11 @@
 # test-mail-connection
 __*Simple standalone app to test connections to ms mail server using OAuth2 authentication*__
 #### execution
-java -jar test-mail-connection-1.0-SNAPSHOT-jar-with-dependencies.jar D:\\...some path...\\credentials.properties
+java -jar test-mail-connection.jar
 #### credentials
 >host=outlook.office365.com
 ><br/>port=993
-><br/>username=login@example.com
+><br/>email=login@example.com
 ><br/>client_id=111111111-1111-1111-1111-111111111111
 ><br/>client_secret=21F8Q~1fz2~1LN156TkrZ4p4AAd9enJdCP_e2c11
 ><br/>scope=https://outlook.office365.com/.default

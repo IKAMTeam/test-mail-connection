@@ -51,8 +51,7 @@ public class TokenClient {
                 throw new RuntimeException(String.format(TEMPLATE_ERROR_MESSAGE, code, body));
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Response is not correct");
+            throw new RuntimeException("Can't read response body returned for OAuth2 token request", e);
         }
     }
 
@@ -64,8 +63,7 @@ public class TokenClient {
             }
             return token;
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("An access token is not received");
+            throw new RuntimeException("An access token is not received", e);
         }
     }
 }
